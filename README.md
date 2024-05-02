@@ -1,3 +1,9 @@
-# Solidity 练习代码仓库
+# Web3 学习记录
 
-官网地址：[WTF-Solidity](https://www.wtf.academy/)
+## WTF-Solidity
+
+文档地址: https://www.wtf.academy/
+
+## foundry-full-coures
+
+### foundry-nft

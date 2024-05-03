@@ -4,3 +4,6 @@
 [submodule "foundry-full-courses/foundry-nft/lib/openzeppelin-contracts"]
 	path = foundry-full-courses/foundry-nft/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "foundry-full-courses/foundry-nft/lib/foundry-devops"]
+	path = foundry-full-courses/foundry-nft/lib/foundry-devops
+	url = https://github.com/ChainAccelOrg/foundry-devops

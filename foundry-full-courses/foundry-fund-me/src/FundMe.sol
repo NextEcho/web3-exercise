@@ -9,7 +9,7 @@ error FundMe__NotOwner();
 
 /**
  * @title A sample Funding Contract
- * @author Patrick Collins
+ * @author NextEcho
  * @notice This contract is for creating a sample funding contract
  * @dev This implements price feeds as our library
  */
@@ -43,6 +43,8 @@ contract FundMe {
     //// private
     //// view / pure
 
+    // priceFeed 是预言机地址, 将该地址转化为 AggregatorV3Interface 类型的接口
+    // 从而调用预言机中的函数，比如 latestRoundData 函数，获取市场货币价格
     constructor(address priceFeed) {
         s_priceFeed = AggregatorV3Interface(priceFeed);
         i_owner = msg.sender;
@@ -75,6 +77,7 @@ contract FundMe {
         require(success);
     }
 
+    // cheaperWithdraw costs less gas, because use `address[] memory funders`
     function cheaperWithdraw() public onlyOwner {
         address[] memory funders = s_funders;
         // mappings can't be in memory, sorry!

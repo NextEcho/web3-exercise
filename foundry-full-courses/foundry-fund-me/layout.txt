@@ -1,0 +1,58 @@
+{
+  "storage": [
+    {
+      "astId": 47170,
+      "contract": "src/FundMe.sol:FundMe",
+      "label": "s_funders",
+      "offset": 0,
+      "slot": "0",
+      "type": "t_array(t_address)dyn_storage"
+    },
+    {
+      "astId": 47174,
+      "contract": "src/FundMe.sol:FundMe",
+      "label": "s_addressToAmountFunded",
+      "offset": 0,
+      "slot": "1",
+      "type": "t_mapping(t_address,t_uint256)"
+    },
+    {
+      "astId": 47177,
+      "contract": "src/FundMe.sol:FundMe",
+      "label": "s_priceFeed",
+      "offset": 0,
+      "slot": "2",
+      "type": "t_contract(AggregatorV3Interface)45"
+    }
+  ],
+  "types": {
+    "t_address": {
+      "encoding": "inplace",
+      "label": "address",
+      "numberOfBytes": "20"
+    },
+    "t_array(t_address)dyn_storage": {
+      "encoding": "dynamic_array",
+      "label": "address[]",
+      "numberOfBytes": "32",
+      "base": "t_address"
+    },
+    "t_contract(AggregatorV3Interface)45": {
+      "encoding": "inplace",
+      "label": "contract AggregatorV3Interface",
+      "numberOfBytes": "20"
+    },
+    "t_mapping(t_address,t_uint256)": {
+      "encoding": "mapping",
+      "key": "t_address",
+      "label": "mapping(address => uint256)",
+      "numberOfBytes": "32",
+      "value": "t_uint256"
+    },
+    "t_uint256": {
+      "encoding": "inplace",
+      "label": "uint256",
+      "numberOfBytes": "32"
+    }
+  }
+}

@@ -39,8 +39,9 @@ ifeq ($(findstring --network sepolia,$(ARGS)),--network sepolia)
 	NETWORK_ARGS := --rpc-url $(SEPOLIA_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
 endif
 
+# Need add `--legacy`, or can not success!!!
 deploy:
-	@forge script script/DeployBasicNft.s.sol:DeployBasicNft $(NETWORK_ARGS)
+	@forge script script/DeployBasicNft.s.sol:DeployBasicNft $(NETWORK_ARGS) --legacy
 
 mint:
 	@forge script script/Interactions.s.sol:MintBasicNft ${NETWORK_ARGS}

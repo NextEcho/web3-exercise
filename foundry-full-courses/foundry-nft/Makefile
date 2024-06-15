@@ -44,7 +44,7 @@ deploy:
 	@forge script script/DeployBasicNft.s.sol:DeployBasicNft $(NETWORK_ARGS) --legacy
 
 mint:
-	@forge script script/Interactions.s.sol:MintBasicNft ${NETWORK_ARGS}
+	@forge script script/Interactions.s.sol:MintBasicNft ${NETWORK_ARGS} --legacy
 
 deployMood:
 	@forge script script/DeployMoodNft.s.sol:DeployMoodNft $(NETWORK_ARGS)

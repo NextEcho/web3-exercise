@@ -47,10 +47,10 @@ mint:
 	@forge script script/Interactions.s.sol:MintBasicNft ${NETWORK_ARGS} --legacy
 
 deployMood:
-	@forge script script/DeployMoodNft.s.sol:DeployMoodNft $(NETWORK_ARGS)
+	@forge script script/DeployMoodNft.s.sol:DeployMoodNft $(NETWORK_ARGS) --legacy
 
 mintMoodNft:
-	@forge script script/Interactions.s.sol:MintMoodNft $(NETWORK_ARGS)
+	@forge script script/Interactions.s.sol:MintMoodNft $(NETWORK_ARGS) --legacy
 
 flipMoodNft:
 	@forge script script/Interactions.s.sol:FlipMoodNft $(NETWORK_ARGS)

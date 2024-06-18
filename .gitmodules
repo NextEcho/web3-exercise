@@ -22,3 +22,6 @@
 [submodule "foundry-full-courses/foundry-erc20/lib/openzeppelin-contracts"]
 	path = foundry-full-courses/foundry-erc20/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "foundry-full-courses/foundry-defi-stablecoin/lib/forge-std"]
+	path = foundry-full-courses/foundry-defi-stablecoin/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

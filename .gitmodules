@@ -28,3 +28,6 @@
 [submodule "foundry-full-courses/foundry-defi-stablecoin/lib/openzeppelin-contracts"]
 	path = foundry-full-courses/foundry-defi-stablecoin/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "foundry-full-courses/foundry-defi-stablecoin/lib/chainlink-brownie-contracts"]
+	path = foundry-full-courses/foundry-defi-stablecoin/lib/chainlink-brownie-contracts
+	url = https://github.com/smartcontractkit/chainlink-brownie-contracts

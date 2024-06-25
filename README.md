@@ -2,11 +2,11 @@
 
 ## WTF-Solidity
 
-文档地址: https://www.wtf.academy/
+文档地址: <https://www.wtf.academy/>
 
 ## foundry-full-coures
 
-GitHub地址: https://github.com/Cyfrin/foundry-full-course-f23/
+GitHub地址: <https://github.com/Cyfrin/foundry-full-course-f23/>
 
 ### 1. foundry-simple-storage
 
@@ -18,4 +18,9 @@ GitHub地址: https://github.com/Cyfrin/foundry-full-course-f23/
 
 ### 5. foundry-nft
 
-### 6. foundry-defi
+### 6. foundry-defi-stablecoin
+
+## GoEthereum
+
+## Solana
+

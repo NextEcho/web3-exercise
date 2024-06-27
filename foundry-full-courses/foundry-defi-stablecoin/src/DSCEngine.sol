@@ -41,6 +41,8 @@ contract DSCEngine is ReentrancyGuard {
     /////////////////////
     uint256 private constant ADDTIONAL_FEED_PRECISION = 1e10;
     uint256 private constant PRECISION = 1e18;
+    uint256 private constant LIQUIDATION_THRESHOLD = 50;
+    uint256 private constant LIQUIDATION_PRECISION = i00;
 
     mapping(address token => address priceFeed) private s_priceFeeds; // 映射货币对应的 priceFeed 地址
     mapping(address user => mapping(address token => uint256 amount)) // 映射用户所存储的货币以及货币数量
@@ -176,7 +178,7 @@ contract DSCEngine is ReentrancyGuard {
     // price 为抵押物所对应的 USD 的价值
     // 然后乘以 ADDTIONAL_FEED_PRECISION, 该值可以文档查询，为 1e8
     // 最后乘以抵押的货币数量，也就是 amount
-    // 此时获取到了最终的价值，但是单位仍然很大，所以最后要除以 1e18, 将单位换算成
+    // 此时获取到了最终的价值，但是单位仍然很大，所以最后要除以 1e18, 将单位换算成 Usd
     function getUsdValue(
         address token,
         uint256 amount
@@ -219,6 +221,9 @@ contract DSCEngine is ReentrancyGuard {
             uint256 totalUscMinted,
             uint256 collateralValueInUsd
         ) = _getAccountInfomation(user);
+
+        uint256 collateralAdjusted = (collateralValueInUsd *
+            LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
     }
 
     function _revertIfHealthRefactorIsBroken(address user) internal view {

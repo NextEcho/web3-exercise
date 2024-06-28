@@ -36,6 +36,7 @@ contract DSCEngine is ReentrancyGuard {
     error DSCEngine__NotAllowedToken();
     error DSCEngine__TransferFailed();
     error DSCEngine__BreakHealthFactor(uint256 healthFactor);
+    error DSCEngine__MintFailed();
 
 
     /////////////////////
@@ -158,6 +159,10 @@ contract DSCEngine is ReentrancyGuard {
         // check if the collateral value > DSC amount
         s_DscMinted[msg.sender] += amountDscToMint;
         _revertIfHealthFactorIsBroken(msg.sender);
+        bool minted = i_dsc.mint(msg.sender, amountDscToMint);
+        if (!minted) {
+            revert DSCEngine__MintFailed();
+        }
     }
 
     function burnDsc() external {}

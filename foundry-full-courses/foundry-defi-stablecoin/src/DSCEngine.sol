@@ -35,6 +35,8 @@ contract DSCEngine is ReentrancyGuard {
     error DSCEngine__TokenAddressesAndPriceAddressesMustBeSameLength();
     error DSCEngine__NotAllowedToken();
     error DSCEngine__TransferFailed();
+    error DSCEngine__BreakHealthFactor(uint256 healthFactor);
+
 
     /////////////////////
     // State Variables //
@@ -42,7 +44,9 @@ contract DSCEngine is ReentrancyGuard {
     uint256 private constant ADDTIONAL_FEED_PRECISION = 1e10;
     uint256 private constant PRECISION = 1e18;
     uint256 private constant LIQUIDATION_THRESHOLD = 50;
-    uint256 private constant LIQUIDATION_PRECISION = i00;
+    uint256 private constant LIQUIDATION_PRECISION = 100;
+    uint256 private constant MIN_HEALTH_FACTOR = 1;
+
 
     mapping(address token => address priceFeed) private s_priceFeeds; // 映射货币对应的 priceFeed 地址
     mapping(address user => mapping(address token => uint256 amount)) // 映射用户所存储的货币以及货币数量
@@ -153,7 +157,7 @@ contract DSCEngine is ReentrancyGuard {
     ) external moreThanZero(amountDscToMint) nonReentrant {
         // check if the collateral value > DSC amount
         s_DscMinted[msg.sender] += amountDscToMint;
-        _revertIfHealthRefactorIsBroken(msg.sender);
+        _revertIfHealthFactorIsBroken(msg.sender);
     }
 
     function burnDsc() external {}
@@ -214,20 +218,38 @@ contract DSCEngine is ReentrancyGuard {
      * If a user goes below, then they can get liquidation
      * @param user User who send collateral
      */
-    function _healthRefactor(address user) private view returns (uint256) {
-        // total Usc minted
+    function _healthFactor(address user) private view returns (uint256) {
+        // total Dsc minted
         // total collateral value
+        // 获取抵押物和所发行的 Dsc 的比值，来衡量抵押物的价值
+        // Dsc 是稳定币，波动不大，所以这里就需要检测抵押物在市场上的价值变化
         (
-            uint256 totalUscMinted,
+            uint256 totalDscMinted,
             uint256 collateralValueInUsd
         ) = _getAccountInfomation(user);
 
-        uint256 collateralAdjusted = (collateralValueInUsd *
+        uint256 collateralAdjustedForThreshold = (collateralValueInUsd *
             LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
+
+        // 这里设定一个比值，从而判定抵押物是否还能够被抵押
+        // 比如 (CollateralValue / Dsc) = (150 / 100)
+        // 也就是至少需要 150 的抵押物才可以获取到 100 的 Dsc
+
+        // $1000 ETH and 100 DSC
+        // 1000 * 50 = 50000 / 100 = 500% = 5
+        // 所以如果账户抵押了价值 $1000 的 ETH，并且其获取了价值 100 的 DSC
+        // 那么该账户的健康因子就是 5
+        // 如果健康因子小于 1，则需要清算抵押物，也就是没收抵押物
+
+        return (collateralAdjustedForThreshold * PRECISION) / totalDscMinted;
     }
 
-    function _revertIfHealthRefactorIsBroken(address user) internal view {
-        // Check health refactor (Do they have enought collateral)
+    function _revertIfHealthFactorIsBroken(address user) internal view {
+        // Check health factor (Do they have enought collateral)
         // revert if they don't
+        uint256 userHealthFactor = _healthFactor(user);
+        if (userHealthFactor < MIN_HEALTH_FACTOR) {
+            revert DSCEngine__BreakHealthFactor(userHealthFactor);
+        }
     }
 }

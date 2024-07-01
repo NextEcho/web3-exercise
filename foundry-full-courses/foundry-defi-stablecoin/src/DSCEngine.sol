@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.18;
+pragma solidity ^0.8.20;
 
 import {DecentralizedStableCoin} from "./DecentralizedStableCoin.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
@@ -38,7 +38,6 @@ contract DSCEngine is ReentrancyGuard {
     error DSCEngine__BreakHealthFactor(uint256 healthFactor);
     error DSCEngine__MintFailed();
 
-
     /////////////////////
     // State Variables //
     /////////////////////
@@ -47,7 +46,6 @@ contract DSCEngine is ReentrancyGuard {
     uint256 private constant LIQUIDATION_THRESHOLD = 50;
     uint256 private constant LIQUIDATION_PRECISION = 100;
     uint256 private constant MIN_HEALTH_FACTOR = 1;
-
 
     mapping(address token => address priceFeed) private s_priceFeeds; // 映射货币对应的 priceFeed 地址
     mapping(address user => mapping(address token => uint256 amount)) // 映射用户所存储的货币以及货币数量

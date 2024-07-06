@@ -267,25 +267,6 @@ contract DSCEngine is ReentrancyGuard {
         }
     }
 
-    // price 为抵押物所对应的 USD 的价值
-    // 然后乘以 ADDTIONAL_FEED_PRECISION, 该值可以文档查询，为 1e8
-    // 最后乘以抵押的货币数量，也就是 amount
-    // 此时获取到了最终的价值，但是单位仍然很大，所以最后要除以 1e18, 将单位换算成 Usd
-    function getUsdValue(
-        address token,
-        uint256 amount
-    ) public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            s_priceFeeds[token]
-        );
-        (, int256 price, , , ) = priceFeed.latestRoundData();
-
-        // If 1 ETH = $1000
-        // According to offical docs, returned value from CL will be 1000 * 1e8
-        return
-            ((uint256(price) * ADDTIONAL_FEED_PRECISION) * amount) / PRECISION;
-    }
-
     function getTokenAmountFromUsd(
         address token,
         uint256 usdAmountInWei
@@ -397,5 +378,34 @@ contract DSCEngine is ReentrancyGuard {
         }
         // 就是这里，由代笔合约进行销毁操作
         i_dsc.burn(amountDscToBurn);
+    }
+
+    // price 为抵押物所对应的 USD 的价值
+    // 然后乘以 ADDTIONAL_FEED_PRECISION, 该值可以文档查询，为 1e8
+    // 最后乘以抵押的货币数量，也就是 amount
+    // 此时获取到了最终的价值，但是单位仍然很大，所以最后要除以 1e18, 将单位换算成 Usd
+    function getUsdValue(
+        address token,
+        uint256 amount
+    ) public view returns (uint256) {
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(
+            s_priceFeeds[token]
+        );
+        (, int256 price, , , ) = priceFeed.latestRoundData();
+
+        // If 1 ETH = $1000
+        // According to offical docs, returned value from CL will be 1000 * 1e8
+        return
+            ((uint256(price) * ADDTIONAL_FEED_PRECISION) * amount) / PRECISION;
+    }
+
+    function getAccountInfomation(
+        address user
+    )
+        external
+        view
+        returns (uint256 totalDscMinted, uint256 collateralValueInUsd)
+    {
+        (totalDscMinted, collateralValueInUsd) = _getAccountInfomation(user);
     }
 }

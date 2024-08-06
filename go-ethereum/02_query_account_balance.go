@@ -40,4 +40,11 @@ func QueryBalanceOfAccount() {
 	fBalance.SetString(balance.String())
 	ethValue := new(big.Float).Quo(fBalance, big.NewFloat(math.Pow10(18)))
 	fmt.Printf("ETH of balance is %v eth\n", ethValue)
+
+	// PendingBalanceAt function
+	pendingBalance, err := client.PendingBalanceAt(context.Background(), account)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("PendingBalance is %v wei\n", pendingBalance)
 }

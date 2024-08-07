@@ -17,4 +17,5 @@ func ConnectEthClient() {
 
 	fmt.Println("Connection!!!")
 	_ = client
+
 }

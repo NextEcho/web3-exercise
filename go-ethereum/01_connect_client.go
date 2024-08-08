@@ -1,21 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
-// 1. Connect ethereum client with go
-func ConnectEthClient() {
+const Addr = "http://127.0.0.1:8545"
 
-	client, err := ethclient.Dial("http://127.0.0.1:8545")
+func ConnectEthClient() *ethclient.Client {
+
+	client, err := ethclient.Dial(Addr)
 	if err != nil {
 		log.Fatal(err)
+		panic(err)
 	}
 
-	fmt.Println("Connection!!!")
-	_ = client
-
+	return client
 }

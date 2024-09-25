@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("G6KM6e5pdAQwpft2ZcSGDxJxv92KYrVPTeak1JkfdVnx");
+declare_id!("A2cMAVF7asJ1AdWQxaZGnJw3FHtmhoh1t4RqaiZS2edd");
 
 #[program]
 pub mod guess_number {
@@ -13,4 +13,6 @@ pub mod guess_number {
 }
 
 #[derive(Accounts)]
-pub struct Initialize {}
+pub struct Initialize {
+    
+}

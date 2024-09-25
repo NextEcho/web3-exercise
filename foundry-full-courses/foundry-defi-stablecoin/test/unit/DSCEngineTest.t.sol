@@ -119,5 +119,7 @@ contract DSCEngineTest is Test {
         assertEq(AMOUNT_COLLATERAL, expectedDepositAmount);
     } 
 
-    // TODO: coding more testing in myself
+    function test() public {
+
+    }
 }

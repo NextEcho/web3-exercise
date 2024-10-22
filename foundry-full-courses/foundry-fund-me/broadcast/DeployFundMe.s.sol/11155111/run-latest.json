@@ -6,9 +6,7 @@
       "contractName": "FundMe",
       "contractAddress": "0x79926590c84d74f766337761b9dbf86ee775f255",
       "function": null,
-      "arguments": [
-        "0x694AA1769357215DE4FAC081bf1f309aDC325306"
-      ],
+      "arguments": ["0x694AA1769357215DE4FAC081bf1f309aDC325306"],
       "transaction": {
         "from": "0xf8ab07aa85e2aad6d87f3338e4301b735e9a90b3",
         "gas": "0xb4a3e",
@@ -51,3 +49,4 @@
   "chain": 11155111,
   "commit": "4da6c7a"
 }
+
